@@ -22,3 +22,4 @@ data/processed/
 checkpoints/
 models/
 .DS_Store
+*.egg-info/
