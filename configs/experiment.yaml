@@ -1,0 +1,63 @@
+# R04 phase-1 pre-bid rescue — FROZEN before any yield was parsed or any metric computed.
+# Frozen: 2026-10-17 (UTC ~19:10), commit recorded in docs/DECISION_LOG.md.
+experiment_id: r04_prebid_rescue_v1
+seed: 20261017
+threads: 2
+
+sources:
+  catalogue: https://bou.or.ug/api/financial-market-auction-information  # BoU Strapi CMS listing
+  documents: https://bou.or.ug/uploads/<file>                             # official PDFs/DOCX
+  first_year: 2022
+
+target:
+  name: cutoff_yield_pct          # yield printed for the cut-off (lowest accepted) price, per tenor
+  tenors_days: [91, 182, 364]
+  must_not_mix: [weighted_average_yield, bond_yields, secondary_market]
+  identity_check: cutoff price P and printed yield y are compared with the discount-to-yield
+                  identity y = (100/P - 1) * B / d * 100 for B in {364, 365}; tolerance 0.02 pp
+
+unit_of_analysis: scheduled T-bill auction event (issue number + auction date); tenors within an event are dependent
+
+forecast_origin: >
+  the auction's bid deadline (10:00 local on the auction date). Allowed information:
+  (i) results of auctions with auction_date strictly before the target auction date,
+  (ii) the target auction's own Invitation to Tender (offered amounts; published days before),
+  (iii) Central Bank Rate decisions announced strictly before the auction date,
+  (iv) macro releases only if a release date is documented strictly before the auction date.
+  Forbidden: same-auction bids received, cover ratio, amounts accepted, weighted average or
+  cut-off price/yield of the target auction, any later revision.
+
+split:
+  scheme: expanding window, one-step-ahead, refit before every test auction
+  first_test_auction_on_or_after: 2024-01-01
+  min_training_events: 20
+  grouping: all tenors of an auction stay in the same fold
+
+models:                     # no other algorithm may be added in this phase
+  primary_baseline: last_yield          # same-tenor cut-off yield of the previous auction
+  ar1: per-tenor OLS y_t = a + b y_{t-1} on the expanding window
+  ridge_prebid: ridge on dy = y_t - y_{t-1}; standardised features; alpha by inner forward CV over [0.1, 1, 10, 100]
+  nonlinear_prebid: HistGradientBoostingRegressor on dy, fixed max_depth=2, learning_rate=0.05, max_iter=200, min_samples_leaf=10 (no tuning)
+  ablation_lag_only: ridge_lag_only (same ridge, lag features only) — secondary, reproduces the *kind* of prior lag-only comparison
+
+features:
+  lag: [dy_lag1, dy_lag2, own_level_lag1, spread_364_91_lag1, spread_182_91_lag1, days_since_prev_auction, tenor dummies]
+  prebid: [log_offer_tenor, offer_change_vs_prev_itt, offer_share_tenor, cbr_in_force, cbr_minus_last_yield, cbr_change_since_prev_auction]
+
+metrics:
+  primary: MAE in percentage points over identical test tenor-rows
+  secondary: [RMSE, directional accuracy of dy (non-zero actual changes)]
+  uncertainty: >
+    auction-level loss differential d_e = mean_tenor(|e_model| - |e_last|); moving-block bootstrap
+    over test auctions (block length 4, 2000 replicates, seed above), 95% percentile CI of mean d_e
+
+decision_rule:
+  GO (CONDITIONAL rescue): a pre-bid model reduces MAE vs last_yield by >= 5% AND the 95% CI upper bound of mean d_e < 0
+                           AND every pre-bid feature used has a documented pre-auction timestamp
+  otherwise: NEGATIVE_MODEL (timing valid, no credible gain) or HOLD_DATA (timing / data unverified); stop the branch.
+
+sensitivities:
+  - as_printed: printed values only; unparseable fields left missing (no silent fixes)
+  - repaired_typo: the documented `13..001` printed-price typo repaired from the price-yield identity
+  - drop_1176: exclude auction issue 1176 (documented price/yield identity ambiguity)
+  - drop_identity_flags: exclude every tenor-row failing the identity check
