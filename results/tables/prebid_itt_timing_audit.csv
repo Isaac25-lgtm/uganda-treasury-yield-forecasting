@@ -47,6 +47,10 @@ auction_date,issue_no,notice_date,notice_lead_days,timing_status,offer_91,offer_
 2023-10-25,1164.0,2023-10-19,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1164_Auction_scheduled_for_25_OCT_2023_048ec9b8d2.pdf
 2023-11-08,1165.0,2023-11-02,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1165_Auction_scheduled_for_08_NOV_2023_8f5574766d.pdf
 2023-11-22,1166.0,2023-11-16,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1166_Auction_scheduled_for_22_NOV_2023_d56e382ec4.pdf
+2023-12-06,1167.0,2023-11-30,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1167_Auction_scheduled_for_06_DEC_2023_5c42fc99e5.pdf
+2023-12-20,1168.0,2023-12-14,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1168_Auction_scheduled_for_20_DEC_2023_8c0a385093.pdf
+2024-01-03,1169.0,2023-12-28,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1169_Auction_scheduled_for_03_JAN_2024_a14df93e65.pdf
+2024-01-17,1170.0,2024-01-11,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1170_Auction_scheduled_for_17_JAN_2024_9806a69f90.pdf
 2024-01-31,1171.0,2024-01-25,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1171_Auction_scheduled_for_31_JAN_2024_7ffcd89ab4.pdf
 2024-02-14,1172.0,2024-02-08,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1172_Auction_scheduled_for_14_FEB_2024_d93ac9e73b.pdf
 2024-02-28,1173.0,2024-02-22,6.0,pre_bid_verified,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1173_Auction_scheduled_for_29_FEB_2024_cc8140b8f2.pdf
@@ -113,9 +117,5 @@ auction_date,issue_no,notice_date,notice_lead_days,timing_status,offer_91,offer_
 2026-09-30,1235.0,2026-09-24,6.0,pre_bid_verified,15000000000.0,50000000000.0,300000000000.0,350000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1235_Auction_scheduled_for_30_Sep_2026_71dcc6c2d4.pdf
 2026-10-21,1236.0,2026-10-15,6.0,pre_bid_verified,15000000000.0,35000000000.0,300000000000.0,,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1236_Auction_scheduled_for_21_Oct_2026_524bd0b2b8.pdf
 ,,,,no_text_layer,,,,,,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1221_Auction_scheduled_for_28_January_2026_3e6470c6ea.pdf
-,1169.0,2023-12-28,,no_text_layer,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1169_Auction_scheduled_for_03_JAN_2024_a14df93e65.pdf
-,1170.0,2024-01-11,,no_text_layer,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1170_Auction_scheduled_for_17_JAN_2024_9806a69f90.pdf
-,1168.0,2023-12-14,,no_text_layer,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1168_Auction_scheduled_for_20_DEC_2023_8c0a385093.pdf
-,1167.0,2023-11-30,,no_text_layer,15000000000.0,40000000000.0,180000000000.0,235000000000.0,10:00am,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1167_Auction_scheduled_for_06_DEC_2023_5c42fc99e5.pdf
 ,,,,no_text_layer,,,,,,TBILLS_INVITATTION_TO_TENDER_09_NOV_2022_4dee8755c6.pdf
 ,,,,no_text_layer,,,,,,Invitation_to_Tender_for_Treasury_Bills_Issue_No_1117_Auction_scheduled_for_05_JAN_2022_6fe7e91cf2.pdf

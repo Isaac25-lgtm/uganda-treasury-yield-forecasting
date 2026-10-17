@@ -1,0 +1,25 @@
+[project]
+name = "ugtbill"
+version = "0.1.0"
+description = "R04: pre-bid forecasting audit for Uganda Treasury-bill auction cut-off yields (research code)"
+requires-python = ">=3.11"
+dependencies = [
+  "numpy>=1.26,<3",
+  "pandas>=2.1,<4",
+  "scikit-learn>=1.4,<2",
+]
+
+[project.optional-dependencies]
+test = ["pytest>=8,<10"]
+dashboard = ["streamlit>=1.36,<2"]
+
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
+testpaths = ["tests"]

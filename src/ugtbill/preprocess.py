@@ -94,14 +94,19 @@ def build_itt(manifest: pd.DataFrame, raw_dir: Path) -> pd.DataFrame:
             continue
         r = parse_itt(extract_text(raw_dir / m["local_file"]))
         rows.append({"local_file": m["local_file"], "source_url": m["source_url"], "sha256": m["sha256"], **r})
-    itt = pd.DataFrame(rows)
-    itt["has_text"] = itt["auction_date"].notna()
+    return classify_notice_timing(pd.DataFrame(rows))
+
+
+def classify_notice_timing(itt: pd.DataFrame) -> pd.DataFrame:
+    """Pre-bid status of each ITT from its printed notice date vs its auction date."""
+    itt = itt.copy()
     ad, nd = pd.to_datetime(itt["auction_date"]), pd.to_datetime(itt["notice_date"])
     itt["notice_lead_days"] = (ad - nd).dt.days
     itt["timing_status"] = np.select(
-        [itt["auction_date"].isna() & itt["issue_no"].isna(), itt["auction_date"].isna(), itt["notice_date"].isna(), itt["notice_lead_days"] <= 0,
-         itt["notice_lead_days"] > MAX_PLAUSIBLE_LEAD_DAYS],
-        ["no_text_layer", "auction_date_unparsed", "notice_date_not_printed", "TIMING_VIOLATION", "implausible_lead_unverified"],
+        [itt["auction_date"].isna() & itt["issue_no"].isna(), itt["auction_date"].isna(), itt["notice_date"].isna(),
+         itt["notice_lead_days"] <= 0, itt["notice_lead_days"] > MAX_PLAUSIBLE_LEAD_DAYS],
+        ["no_text_layer", "auction_date_unparsed", "notice_date_not_printed", "TIMING_VIOLATION",
+         "implausible_lead_unverified"],
         default="pre_bid_verified")
     return itt
 

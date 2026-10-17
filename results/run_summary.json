@@ -1,7 +1,7 @@
 {
   "experiment_id": "r04_prebid_rescue_v1",
-  "run_started_utc": "2026-10-17T19:15:33+00:00",
-  "code_commit_at_run": "3bf3cb3cfd30a5d4abcadbe2e80c2a30c62767ec",
+  "run_started_utc": "2026-10-17T19:17:16+00:00",
+  "code_commit_at_run": "ffa9c474a783a94076c2161518f458842c35e9a9",
   "first_test": "2024-01-01",
   "primary_sensitivity": "repaired_typo",
   "decision": "NEGATIVE_MODEL",
