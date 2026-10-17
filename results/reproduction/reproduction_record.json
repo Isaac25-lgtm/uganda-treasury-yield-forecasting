@@ -1,0 +1,31 @@
+{
+  "reproduction_id": "r04_repro_2026-10-17",
+  "date_utc": "2026-10-17T20:34:51Z",
+  "code_commit": "b63a84e84d7c737462d66a52e8703d45f5c04445",
+  "base_main": "cf5d52ebed2257013022fe76f66052975c008b2e",
+  "command": "OMP_NUM_THREADS=2 OPENBLAS_NUM_THREADS=2 PYTHONPATH=src python3 -I scripts/run_pipeline.py --out-dir <scratch>",
+  "compare_command": "PYTHONPATH=src python3 -I scripts/compare_reproduction.py <scratch> --write results/reproduction",
+  "wall_seconds": 60,
+  "threads": 2,
+  "redownloaded_documents": 0,
+  "raw_inputs": {
+    "source": "cached official BoU documents from the phase-1 acquisition in this cloud container",
+    "manifest": "data/manifests/bou_tbill_documents.csv",
+    "manifest_sha256": "b63dfe1aab4c769c610dedfb3838b089a9820129dbc1774222c79a96d1c0e3a4",
+    "documents_expected": 239,
+    "documents_present": 239,
+    "documents_missing": 0,
+    "sha256_mismatches": 0,
+    "catalogue_sha256": "0f7cf2a1705dd880e1178f584247ae62daf53ae2f6e1a9e9063508d864829302"
+  },
+  "environment": {
+    "python": "3.13.16",
+    "numpy": "2.5.3",
+    "pandas": "3.0.5",
+    "scikit_learn": "1.9.1",
+    "poppler": "pdftotext version 24.02.0",
+    "platform": "Linux-6.18.44-fc-v139-x86_64-with-glibc2.39"
+  },
+  "result": "all 9 committed tables EXACT (max |diff| 0.0; wall-clock fit_seconds excluded); decision NEGATIVE_MODEL reproduced",
+  "not_changed": "models, hyperparameters, splits, sensitivities, GO rule"
+}

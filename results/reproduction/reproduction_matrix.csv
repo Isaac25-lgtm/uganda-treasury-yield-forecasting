@@ -1,0 +1,10 @@
+table,committed_rows,reproduced_rows,same_columns,max_abs_diff,n_text_mismatch,excluded_columns,status
+event_registry_tenor_rows.csv,300,300,True,0.0,0,,EXACT
+forecasts_primary.csv,132,132,True,0.0,0,,EXACT
+forward_metrics_all_sensitivities.csv,20,20,True,0.0,0,,EXACT
+inclusion_flow.csv,4,4,True,0.0,0,,EXACT
+mae_by_tenor_primary.csv,15,15,True,0.0,0,,EXACT
+model_registry_primary.csv,45,45,True,0.0,0,fit_seconds,EXACT
+prebid_itt_timing_audit.csv,120,120,True,0.0,0,,EXACT
+results_document_status.csv,119,119,True,0.0,0,,EXACT
+source_anomalies.csv,6,6,True,0.0,0,,EXACT

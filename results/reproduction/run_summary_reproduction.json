@@ -1,0 +1,13 @@
+{
+  "experiment_id": "r04_prebid_rescue_v1",
+  "run_started_utc": "2026-10-17T20:34:52+00:00",
+  "code_commit_at_run": "b63a84e84d7c737462d66a52e8703d45f5c04445",
+  "first_test": "2024-01-01",
+  "primary_sensitivity": "repaired_typo",
+  "decision": "NEGATIVE_MODEL",
+  "macro_features": "HOLD_DATA (CBR/CPI/FX release chronology not obtained)",
+  "documents_parsed_ok": 101,
+  "documents_no_text_layer": 10,
+  "identity_conflicting_duplicates": 0,
+  "run_finished_utc": "2026-10-17T20:35:51+00:00"
+}
