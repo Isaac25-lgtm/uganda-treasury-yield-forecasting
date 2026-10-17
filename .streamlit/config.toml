@@ -1,0 +1,19 @@
+# Public-safe defaults for the read-only R04 research dashboard.
+[client]
+showErrorDetails = "none"   # never expose tracebacks / local paths to visitors
+toolbarMode = "viewer"
+
+[browser]
+gatherUsageStats = false
+
+[server]
+headless = true
+runOnSave = false
+maxUploadSize = 1           # the app accepts no uploads
+
+[theme]
+base = "light"              # chart palette was validated against the light surface
+primaryColor = "#2a78d6"
+backgroundColor = "#fcfcfb"
+secondaryBackgroundColor = "#f3f2ef"
+textColor = "#0b0b0b"
