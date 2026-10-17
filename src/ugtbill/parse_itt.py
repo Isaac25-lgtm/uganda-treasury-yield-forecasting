@@ -20,7 +20,7 @@ MONTHS["sept"] = 9
 _DATE_WORDS = re.compile(
     r"(?:(?:mon|tues|wednes|thurs|fri|satur|sun)day,?\s+)?"
     r"(?:(?P<d1>\d{1,2})(?:st|nd|rd|th)?,?\s+(?P<m1>[A-Za-z]{3,9})\.?,?\s+(?P<y1>\d{4})"
-    r"|(?P<m2>[A-Za-z]{3,9})\.?\s+(?P<d2>\d{1,2})(?:st|nd|rd|th)?,?\s+(?P<y2>\d{4}))",
+    r"|(?P<m2>[A-Za-z]{3,9})\.?[\s,]+(?P<d2>\d{1,2})(?:st|nd|rd|th)?,?\s+(?P<y2>\d{4}))",
     re.I,
 )
 

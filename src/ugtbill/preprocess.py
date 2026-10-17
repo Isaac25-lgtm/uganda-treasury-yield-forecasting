@@ -99,9 +99,9 @@ def build_itt(manifest: pd.DataFrame, raw_dir: Path) -> pd.DataFrame:
     ad, nd = pd.to_datetime(itt["auction_date"]), pd.to_datetime(itt["notice_date"])
     itt["notice_lead_days"] = (ad - nd).dt.days
     itt["timing_status"] = np.select(
-        [itt["auction_date"].isna(), itt["notice_date"].isna(), itt["notice_lead_days"] <= 0,
+        [itt["auction_date"].isna() & itt["issue_no"].isna(), itt["auction_date"].isna(), itt["notice_date"].isna(), itt["notice_lead_days"] <= 0,
          itt["notice_lead_days"] > MAX_PLAUSIBLE_LEAD_DAYS],
-        ["no_text_layer", "notice_date_not_printed", "TIMING_VIOLATION", "implausible_lead_unverified"],
+        ["no_text_layer", "auction_date_unparsed", "notice_date_not_printed", "TIMING_VIOLATION", "implausible_lead_unverified"],
         default="pre_bid_verified")
     return itt
 
