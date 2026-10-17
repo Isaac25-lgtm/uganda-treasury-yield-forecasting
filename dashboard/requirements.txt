@@ -1,0 +1,6 @@
+# Minimal runtime for the read-only R04 dashboard (reads committed aggregate CSVs only).
+# Bounded ranges; verified resolvable for Python 3.11. No scraping, PDF, or modelling libraries needed at runtime.
+streamlit>=1.50,<2
+altair>=5.4,<7
+pandas>=2.1,<4
+numpy>=1.26,<3

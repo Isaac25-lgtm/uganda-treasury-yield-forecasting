@@ -42,3 +42,19 @@ The prior `13..001` typo and the three auction-1176 identity anomalies **are rep
 |---|---|---|
 | 1 | `eb66c2d` | first evaluation; 42 test auctions (ITT dates `January,03 2024` not parsed) |
 | 2 (reported) | `ffa9c47` + docs | parser fix only (no model/rule change); 45 test auctions; same decision |
+
+## Presentation / reproducibility phase (17 Oct 2026, branch `research/presentation-repro-2026-10-17`)
+
+- **Independent reproduction: EXACT.** One re-run used checksum-valid cached raw documents: 239/239 present,
+  0 SHA-256 mismatches, 0 re-downloaded. Code commit `b63a84e`, 60 s, 2 threads. All 9 committed tables
+  reproduced exactly (max |diff| 0.0; only wall-clock `fit_seconds` excluded). See
+  `results/reproduction/reproduction_matrix.csv` and `reproduction_record.json`.
+- **Consistency recomputed from committed forecasts:** MAE/RMSE per model match the committed metrics to 5 dp
+  (last yield 0.33686 pp).
+- **Nothing changed in the science:** models, hyperparameters, splits, sensitivities and the GO rule are untouched.
+  Decision still `NEGATIVE_MODEL`, macro arm still `HOLD_DATA`. Retrospective timing evidence and the run-1/run-2
+  parser-fix history are unchanged.
+- **New finding while building the calendar view:** the ITT date 2024-04-10 is auction 1176, whose results are
+  dated 11-Apr-2024. This is a reschedule, not a missing auction, and is consistent with its actual-day yield
+  convention.
+- **Deployment:** **HOLD_DEPLOYMENT** — BoU terms allow copying "for User use" only (`docs/DEPLOYMENT.md`).

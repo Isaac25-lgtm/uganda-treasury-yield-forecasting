@@ -1,0 +1,13 @@
+Metadata-Version: 2.4
+Name: ugtbill
+Version: 0.1.0
+Summary: R04: pre-bid forecasting audit for Uganda Treasury-bill auction cut-off yields (research code)
+Requires-Python: >=3.11
+Requires-Dist: numpy<3,>=1.26
+Requires-Dist: pandas<4,>=2.1
+Requires-Dist: scikit-learn<2,>=1.4
+Provides-Extra: test
+Requires-Dist: pytest<10,>=8; extra == "test"
+Provides-Extra: dashboard
+Requires-Dist: streamlit<2,>=1.50; extra == "dashboard"
+Requires-Dist: altair<7,>=5.4; extra == "dashboard"

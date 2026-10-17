@@ -48,13 +48,26 @@ Validated: BoU auction documents. Blocked/HOLD: dated CBR decisions (Power BI on
 bypassed), FX history. 10 results releases from Dec-2025 to Sep-2026 have no text layer and are reported missing.
 Details: [`docs/DATA_ACCESS.md`](docs/DATA_ACCESS.md).
 
+## Reproduction and presentation (17 Oct 2026)
+
+**Reproduction.** An independent re-run used 239/239 checksum-valid cached BoU documents, with nothing
+re-downloaded. All 9 committed result tables reproduced **exactly** (`results/reproduction/`). MAE/RMSE recomputed
+from the committed forecasts confirm last-yield **0.33686 pp** as the best of the five model families.
+
+**Dashboard.** `dashboard/app.py` is a full research dashboard.
+
+**Deployment status: HOLD_DEPLOYMENT.** BoU's website terms allow downloading and copying "for User use" but
+do not clearly allow public republication (`docs/DEPLOYMENT.md`). Prior art remains `UNVERIFIED` and needs a
+direct competitor audit (`docs/PRIOR_ART.md`). No novelty is claimed.
+
 ## Reproduce
 ```bash
 pip install -e ".[test,dashboard]"          # needs poppler-utils
 PYTHONPATH=src python3 -m ugtbill.acquire --first-year 2022
 OMP_NUM_THREADS=2 PYTHONPATH=src python3 -I scripts/run_pipeline.py
 python3 -m pytest -q
-streamlit run dashboard/app.py               # local research dashboard; not deployed
+PYTHONPATH=src python3 -I scripts/compare_reproduction.py <out-dir>   # compare a re-run with committed tables
+pip install -r dashboard/requirements.txt && streamlit run dashboard/app.py   # local only; HOLD_DEPLOYMENT
 ```
 
 ## Repository map

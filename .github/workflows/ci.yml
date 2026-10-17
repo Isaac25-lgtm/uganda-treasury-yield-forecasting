@@ -14,6 +14,7 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - run: pip install -e ".[test,dashboard]"
-      # Fixtures and committed-aggregate dashboard smoke tests; no downloads or model retraining.
-      - run: OMP_NUM_THREADS=2 pytest -q
+      - run: pip install -e ".[test]" -r dashboard/requirements.txt
+      # Fixture, committed-aggregate consistency and AppTest dashboard tests only:
+      # no source fetching, no PDF parsing of official files, no model training.
+      - run: OMP_NUM_THREADS=2 R04_REQUIRE_DASHBOARD=1 pytest -q
