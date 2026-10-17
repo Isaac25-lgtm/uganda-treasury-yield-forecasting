@@ -27,20 +27,28 @@ import pandas as pd  # noqa: E402
 from ugtbill.evaluate import decision, forward_evaluate, summarise  # noqa: E402
 from ugtbill.features import build_features  # noqa: E402
 from ugtbill.preprocess import (assemble_panel, audit_identity, build_itt, build_results,  # noqa: E402
-                                dedupe_events, load_manifest, write_csv)
+                                dedupe_events, load_manifest, verify_raw_inputs, write_csv)
 
 FIRST_TEST = "2024-01-01"
 SENSITIVITIES = ["as_printed", "repaired_typo", "drop_1176", "drop_identity_flags"]
 PRIMARY = "repaired_typo"  # declared primary analysis set; as_printed reported alongside
 
 
-def main() -> None:
+def main(argv: list[str] | None = None) -> None:
+    import argparse
+
+    ap = argparse.ArgumentParser(description=__doc__)
+    ap.add_argument("--out-dir", type=Path, default=ROOT / "results",
+                    help="where tables/ and run_summary.json are written (default: committed results/)")
+    ap.add_argument("--raw-dir", type=Path, default=ROOT / "data/raw/bou/docs")
+    a = ap.parse_args(argv)
     t0 = datetime.now(timezone.utc)
-    raw = ROOT / "data/raw/bou/docs"
+    raw = a.raw_dir
     proc = ROOT / "data/processed"
-    tables = ROOT / "results/tables"
+    tables = a.out_dir / "tables"
     tables.mkdir(parents=True, exist_ok=True)
     manifest = load_manifest(ROOT / "data/manifests/bou_tbill_documents.csv")
+    verify_raw_inputs(manifest, raw)  # fails clearly if any raw document is missing or altered
 
     docs, rows = build_results(manifest, raw)
     audited = audit_identity(rows)
@@ -103,7 +111,8 @@ def main() -> None:
            "documents_parsed_ok": int((docs["status"] == "ok").sum()),
            "documents_no_text_layer": int((docs["status"] == "no_text_layer").sum()),
            "identity_conflicting_duplicates": int(len(conflicts))}
-    (ROOT / "results/run_summary.json").write_text(json.dumps(run, indent=2) + "\n")
+    run["run_finished_utc"] = datetime.now(timezone.utc).isoformat(timespec="seconds")
+    (a.out_dir / "run_summary.json").write_text(json.dumps(run, indent=2) + "\n")
     print(pd.DataFrame(flow).to_string(index=False))
     print(summary.round(4).to_string(index=False))
     print(json.dumps(run, indent=2))

@@ -29,6 +29,32 @@ def load_manifest(path: Path) -> pd.DataFrame:
     return pd.read_csv(path, dtype=str).fillna("")
 
 
+class RawInputError(RuntimeError):
+    """Raw official documents are missing, empty or differ from the committed manifest."""
+
+
+def verify_raw_inputs(manifest: pd.DataFrame, raw_dir: Path) -> None:
+    from .acquire import sha256_file
+
+    if manifest.empty:
+        raise RawInputError("manifest is empty: nothing to reproduce")
+    missing, altered = [], []
+    for f, h in zip(manifest["local_file"], manifest["sha256"]):
+        if not f:
+            missing.append("(download failed in manifest)")
+            continue
+        p = Path(raw_dir) / f
+        if not p.exists() or p.stat().st_size == 0:
+            missing.append(f)
+        elif sha256_file(p) != h:
+            altered.append(f)
+    if missing or altered:
+        raise RawInputError(
+            f"{len(missing)} raw documents missing/empty and {len(altered)} altered under {raw_dir}; "
+            "run `python -m ugtbill.acquire` first. Reproduction from committed metric CSVs is NOT a reproduction. "
+            f"First missing: {missing[:3]} first altered: {altered[:3]}")
+
+
 def build_results(manifest: pd.DataFrame, raw_dir: Path) -> tuple[pd.DataFrame, pd.DataFrame]:
     docs, rows = [], []
     for _, m in manifest[manifest["category"] == "Auction results"].iterrows():
